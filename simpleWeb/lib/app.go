@@ -39,10 +39,20 @@ func (app *App) IndexHandler(w http.ResponseWriter, r *http.Request) {
 	a := query.Get("a")
 	// 利用反射给struct赋值和调用方法
 	route := router.RegStruct[c]
+	if route == nil {
+		fmt.Fprintf(w,"No such controller!")
+		return
+	}
 	ele := reflect.ValueOf(route)
 	ele.Elem().FieldByName("W").Set(reflect.ValueOf(w))
 	ele.Elem().FieldByName("R").Set(reflect.ValueOf(r))  
-	ele.MethodByName(a).Call([]reflect.Value{})
+	method := ele.MethodByName(a)
+	if !method.IsValid() {
+	    fmt.Fprintf(w,"No such method!")
+		return
+	}
+	//如果传参，需用reflect.ValueOf()处理
+	method.Call([]reflect.Value{})
 }
 
 
@@ -52,26 +62,15 @@ func (app *App) getRequestInfo(w http.ResponseWriter, r *http.Request) {
 	// pathInfo := strings.Trim(r.URL.Path, "/")
 	// parts := strings.Split(pathInfo, "/")
 	// fmt.Fprintln(w,parts[0])
-	//fmt.Fprintln(w,*r)
-	fmt.Fprintf(w,"\nURL:%v,\nHeader:%v,\nBody:%v,\nHost:%v,\nPostForm:%v,\nRemoteAddr:%v\n\n",r.URL,r.Header,r.Body,r.Host,r.PostForm,r.RemoteAddr)
+	// fmt.Fprintln(w,*r)
+	// fmt.Fprintf(w,"\nURL:%v,\nHeader:%v,\nBody:%v,\nHost:%v,\nPostForm:%v,\nRemoteAddr:%v\n\n",r.URL,r.Header,r.Body,r.Host,r.PostForm,r.RemoteAddr)
+
 	// header信息
-	for i,v := range r.Header {
-		fmt.Fprintf(w,"%v : %v\n",i,v)
-	}
+	// for i,v := range r.Header {
+	// 	fmt.Fprintf(w,"%v : %v\n",i,v)
+	// }
 }
 
-
-
-
-// login := &loginController{}
-// controller := reflect.ValueOf(login)
-// method := controller.MethodByName(action)
-// if !method.IsValid() {
-//     method = controller.MethodByName(strings.Title("index") + "Action")
-// }
-// requestValue := reflect.ValueOf(r)
-// responseValue := reflect.ValueOf(w)
-// method.Call([]reflect.Value{responseValue, requestValue})
 
 
 // func DynamicInvoke(object interface{}, methodName string, args ...interface{}) {
