@@ -2,12 +2,12 @@ package controller
 
 import(
 	"fmt"
-	"net/http"
+
+	"simpleWeb/lib/base"
 )
 
 type IndexController struct{
-	W http.ResponseWriter
-	R *http.Request
+	base.Controller
 }
 
 func (c *IndexController) GetName(){

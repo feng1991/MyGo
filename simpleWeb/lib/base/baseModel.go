@@ -14,6 +14,7 @@ type Model struct{
 	Conn *sql.DB
 }
 
+// 连接db
 func (model *Model) InitModel() {
 	dsn := fmt.Sprintf("%s:%s@%s(%s:%d)/%s",config.USERNAME,config.PASSWORD,config.NETWORK,config.SERVER,config.PORT,config.DATABASE)
 	db,err := sql.Open("mysql",dsn)
