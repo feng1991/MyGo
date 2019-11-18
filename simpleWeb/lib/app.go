@@ -2,7 +2,6 @@ package lib
  
 import (
 	"fmt"
-	//"strings"
 	"net/http"
 	"reflect"
 	
@@ -18,6 +17,7 @@ type App struct{
 func init() {
 }
 
+
 //启动服务端
 func (app *App) Setup() {
 	//设置相应函数
@@ -32,7 +32,6 @@ func (app *App) Setup() {
 func (app *App) IndexHandler(w http.ResponseWriter, r *http.Request) {
 	app.W = w
 	app.R = r
-	app.getRequestInfo(w,r)
 	// 处理请求
 	query := r.URL.Query()
 	c := query.Get("c")
@@ -54,32 +53,3 @@ func (app *App) IndexHandler(w http.ResponseWriter, r *http.Request) {
 	//如果传参，需用reflect.ValueOf()处理
 	method.Call([]reflect.Value{})
 }
-
-
-
-func (app *App) getRequestInfo(w http.ResponseWriter, r *http.Request) {
-	// request信息
-	// pathInfo := strings.Trim(r.URL.Path, "/")
-	// parts := strings.Split(pathInfo, "/")
-	// fmt.Fprintln(w,parts[0])
-	// fmt.Fprintln(w,*r)
-	// fmt.Fprintf(w,"\nURL:%v,\nHeader:%v,\nBody:%v,\nHost:%v,\nPostForm:%v,\nRemoteAddr:%v\n\n",r.URL,r.Header,r.Body,r.Host,r.PostForm,r.RemoteAddr)
-
-	// header信息
-	// for i,v := range r.Header {
-	// 	fmt.Fprintf(w,"%v : %v\n",i,v)
-	// }
-}
-
-
-
-// func DynamicInvoke(object interface{}, methodName string, args ...interface{}) {
-// 	inputs := make([]reflect.Value, len(args))
-// 	for i, _ := range args {
-// 		inputs[i] = reflect.ValueOf(args[i])
-// 	}
-// 	//动态调用方法
-// 	reflect.ValueOf(object).MethodByName(methodName).Call(inputs)
-// 	//动态访问属性
-// 	reflect.ValueOf(object).Elem().FieldByName("Name")
-// }

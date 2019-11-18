@@ -2,12 +2,13 @@
 package base
 
 import(
-	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
 	"fmt"
 	"time"
+	"database/sql"
 	
 	"simpleWeb/config"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type Model struct{

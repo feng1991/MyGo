@@ -2,6 +2,7 @@
 package base
 
 import(
+	//"fmt"
 	"encoding/json"
 	"net/http"
 
@@ -28,4 +29,14 @@ func (ctl *Controller) OutputJson(obj interface{}) string {
 		return ""
 	}
 	return string(data)
+}
+
+// 获得头部信息
+func (ctl *Controller) GetHeader(name string) []string {
+	//var str string
+	// for i,v := range ctl.R.Header {
+	// 	str += fmt.Sprintf("%v : %v\n",i,v)
+	// }
+	//return str
+	return ctl.R.Header[name]
 }
