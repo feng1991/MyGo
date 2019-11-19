@@ -29,3 +29,24 @@ func (model *Model) InitModel() {
 	model.Conn.SetMaxIdleConns(16) //设置闲置连接数
 }
 
+
+
+// res, err := Db.Exec("INSERT INTO userinfo (username, password, department,email) VALUES (?, ?, ?,?)","wd","123","it","wd@163.com")
+// _, err1 := Db.Exec("update userinfo set username = ? where uid = ?","jack",1)
+// _, err2 := Db.Exec("delete from userinfo where uid = ? ", 1)
+
+// rows, err := Db.Query("SELECT username,password,email FROM userinfo")
+// for rows.Next() { 
+// 	var username,password,email string
+// 	err = rows.Scan(&username, &password, &email)
+// }
+
+// row := Db.QueryRow("SELECT username,password,email FROM userinfo where uid = ?",1)
+// var username,password,email string
+// err :=row.Scan(&username,&password,&email)
+
+// var stus []stu
+// err := Db.Select(&stus,"SELECT username,password,email FROM userinfo")
+
+// var s stu
+// err1 := Db.Get(&s,"SELECT username,password,email FROM userinfo where uid = ?",2)

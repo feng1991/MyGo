@@ -6,6 +6,7 @@ import(
 	"simpleWeb/app/common"
 	"simpleWeb/app/model"
 	"simpleWeb/lib/base"
+	"simpleWeb/lib/cache"
 )
 
 type DemoController struct{
@@ -55,4 +56,20 @@ func (c *DemoController) GetHead(){
 	for _,v := range arr{
 		fmt.Fprintf(c.W,v)
 	}
+}
+
+func (c *DemoController) GetRedis(){
+	var re = new(cache.SimpleRedis)
+	re.InitRedis()
+	// err := re.Set("name123","yyff")
+	// if err != nil{
+	// 	fmt.Fprintln(c.W,err)
+	// 	return
+	// }
+	v,err := re.Get("name123")
+	if err != nil{
+		fmt.Fprintln(c.W,err)
+		return
+	}
+	fmt.Fprintln(c.W,v)
 }

@@ -12,4 +12,9 @@ const(
     SERVER   = "127.0.0.1"
     PORT     = 3307
 	DATABASE = "world"
+
+	// redis配置
+	REDIS_SERVER   = "127.0.0.1"
+	REDIS_PORT     = 6379
+	REDIS_AUTH     = "12345"
 )
